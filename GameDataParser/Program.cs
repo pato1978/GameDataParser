@@ -1,14 +1,9 @@
-﻿Console.WriteLine("Please enter name of file you want to read:");
-var input = Console.ReadLine();
+﻿
 
-if (input == null)
-{
-    Console.WriteLine("File name cannot be null.");
-}
-else if ( input == "")
-{
-    Console.WriteLine("File name cannot be empty.");
-}
+using GameDataParser.App;
+
+GameDataParserApp app = new GameDataParserApp(new StringsTextualRepository(),new GameDataParserConsoleUserInteraction ());
+app.Run();
 
 
 Console.ReadLine();
