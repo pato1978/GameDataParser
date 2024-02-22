@@ -9,15 +9,14 @@ namespace GameDataParser.App
 {
     public class GameDataParserApp
     {   
-        private readonly IStringsRepository _stringsTextualRepository;
-        private readonly StringsJsonRepository _stringsJsonRepository;
+        
+        private readonly IStringsRepository _stringsJsonRepository;
         private readonly IGameDataParserUserInteraction _gameDataParserConsoleUserInteraction;
 
-        public GameDataParserApp(IStringsRepository stringsTextualRepository,
-                                 StringsJsonRepository stringsJsonRepository,
+        public GameDataParserApp(IStringsRepository stringsJsonRepository,
                                  IGameDataParserUserInteraction gameDataParserConsoleUserInteraction)
         {
-            _stringsTextualRepository = stringsTextualRepository;
+           
             _stringsJsonRepository = stringsJsonRepository;
             _gameDataParserConsoleUserInteraction = gameDataParserConsoleUserInteraction;
             
@@ -56,7 +55,7 @@ namespace GameDataParser.App
                     _gameDataParserConsoleUserInteraction.PrintGames(games);
                 }
             }
-            catch (JsonException ex)
+            catch (JsonException)
             {
                 var fileContents = File.ReadAllText(input);
                 _gameDataParserConsoleUserInteraction.PrintNoValidFormatMessage(input, fileContents);

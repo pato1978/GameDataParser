@@ -1,6 +1,6 @@
 ﻿
 
-public class StringsTextualRepository : IStringsRepository
+public class StringsTextualRepository 
 {
     private static readonly string Separator = Environment.NewLine;
 

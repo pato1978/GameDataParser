@@ -1,6 +1,7 @@
-﻿
+﻿using GameDataParser;
+
 public interface IStringsRepository
 {
-    List<string> Read(string filePath);
-    void Write(string filePath, List<string> names);
+    List<Games> Read(string filePath);
+    void Write(string filePath, List<string> strings);
 }
