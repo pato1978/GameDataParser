@@ -21,9 +21,10 @@ namespace GameDataParser.App
         }
         public void PrintGames(List<Games> games)
         {
+            Console.WriteLine("Loaded games are:");
             foreach (var game in games)
             {
-                Console.WriteLine("----------------------------------");
+                Console.WriteLine();
                 Console.WriteLine($"{game.Title}, released in {game.ReleaseYear}, rating: {game.Rating}");               
 
             }

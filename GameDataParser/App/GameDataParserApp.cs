@@ -47,20 +47,23 @@ namespace GameDataParser.App
             try
             {
                 var games = _stringsJsonRepository.Read(input);
-                _gameDataParserConsoleUserInteraction.PrintGames(games);
+                if (games.Count == 0)
+                {
+                    _gameDataParserConsoleUserInteraction.ShowMessage("No games are present in the input file.");
+                }
+                else
+                {
+                    _gameDataParserConsoleUserInteraction.PrintGames(games);
+                }
             }
             catch (JsonException ex)
             {
                 var fileContents = File.ReadAllText(input);
                 _gameDataParserConsoleUserInteraction.PrintNoValidFormatMessage(input, fileContents);
-                //Console.WriteLine(ex.Message,ex.StackTrace);
-
-                throw new JsonException();
+               
+                throw;
             }
-            catch (JsonException ex)
-            {
-                Console.WriteLine($"JSON Parsing Error: {ex.Message}");
-            }
+            
 
 
         }
