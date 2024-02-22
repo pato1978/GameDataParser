@@ -2,19 +2,25 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Text.Json;
 using System.Threading.Tasks;
 
 namespace GameDataParser.App
 {
     public class GameDataParserApp
     {   
-        private readonly StringsTextualRepository _stringsTextualRepository;
+        private readonly IStringsRepository _stringsTextualRepository;
+        private readonly StringsJsonRepository _stringsJsonRepository;
         private readonly IGameDataParserUserInteraction _gameDataParserConsoleUserInteraction;
 
-        public GameDataParserApp(StringsTextualRepository stringsTextualRepository, IGameDataParserUserInteraction gameDataParserConsoleUserInteraction)
+        public GameDataParserApp(IStringsRepository stringsTextualRepository,
+                                 StringsJsonRepository stringsJsonRepository,
+                                 IGameDataParserUserInteraction gameDataParserConsoleUserInteraction)
         {
             _stringsTextualRepository = stringsTextualRepository;
+            _stringsJsonRepository = stringsJsonRepository;
             _gameDataParserConsoleUserInteraction = gameDataParserConsoleUserInteraction;
+            
         }
 
         public void Run()
@@ -38,11 +44,28 @@ namespace GameDataParser.App
                 }
             } while (!File.Exists(input));
 
-            var games = _stringsTextualRepository.Read(input);
-            _gameDataParserConsoleUserInteraction.PrintGames(games);
+            try
+            {
+                var games = _stringsJsonRepository.Read(input);
+                _gameDataParserConsoleUserInteraction.PrintGames(games);
+            }
+            catch (JsonException ex)
+            {
+                var fileContents = File.ReadAllText(input);
+                _gameDataParserConsoleUserInteraction.PrintNoValidFormatMessage(input, fileContents);
+                //Console.WriteLine(ex.Message,ex.StackTrace);
+
+                throw new JsonException();
+            }
+            catch (JsonException ex)
+            {
+                Console.WriteLine($"JSON Parsing Error: {ex.Message}");
+            }
+
 
         }
 
         
+
     }
 }

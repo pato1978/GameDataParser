@@ -28,6 +28,14 @@ namespace GameDataParser.App
 
             }
         }
+        public void PrintNoValidFormatMessage(string? input, string fileContents)
+        {
+            Console.Write($"JSON in the {input} was not in a valid format. ");
+            Console.ForegroundColor = ConsoleColor.Red;
+            Console.Write("JSON body:");
+            Console.ResetColor();
+            Console.WriteLine($" {fileContents}");
+        }
 
     }
 }

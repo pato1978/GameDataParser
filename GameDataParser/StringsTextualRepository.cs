@@ -1,27 +1,17 @@
-﻿using GameDataParser;
-using System.Text.Json;
-using System.Text.Json.Nodes;
+﻿
 
-
-
-public class StringsTextualRepository
+public class StringsTextualRepository : IStringsRepository
 {
     private static readonly string Separator = Environment.NewLine;
 
-    public List<Games> Read(string filePath)
+    public List<string> Read(string filePath)
     {
         var fileContents = File.ReadAllText(filePath);
-        var strings =JsonSerializer.Deserialize<List<Games>>(fileContents);
-
-        return strings;
+        return fileContents.Split(Separator).ToList();
     }
 
-    public void Write(
-        string filePath, List<string> names)
+    public void Write(string filePath, List<string> text)
     {
-        File.WriteAllText(
-            filePath,
-            string.Join(Separator, names));
+        File.WriteAllText(filePath, string.Join(Separator, text));
     }
 }
-
