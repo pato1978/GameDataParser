@@ -11,6 +11,7 @@ GameDataParserApp app = new GameDataParserApp(
 StringsTextualRepository stringsTextualRepository = new StringsTextualRepository();
 
 
+
 try
 {
 	app.Run();
@@ -29,7 +30,7 @@ catch (Exception ex)
     }
     else 
     {
-        List<string> newLog = [DateTime.Now.ToString() + ex.Message + ex.StackTrace];
+        List<string> newLog =[DateTime.Now.ToString() + ex.Message + ex.StackTrace];
         stringsTextualRepository.Write("log.txt", newLog);
     }
 }
